@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start:ci": "serve --no-clipboard --listen ${PORT:-8080}",
-    "test:api": "npm ci & npm run start:ci & npx cypress --spec 'tests/API/*.spec.js'",
-    "test:ui:chrome": "npm ci & npm run start:ci & npx cypress --spec 'tests/UI/*.spec.js' --browser chrome",
-    "test:ui:firefox": "npm ci & npm run start:ci & npx cypress --spec 'tests/UI/*.spec.js' --browser firefox"
+    "test:api": "npx cypress run --spec 'tests/API/*.spec.js'",
+    "test:ui:chrome": "npx cypress run --spec 'tests/UI/*.spec.js' --browser chrome",
+    "test:ui:firefox": "npx cypress run --spec 'tests/UI/*.spec.js' --browser firefox"
   },
   "author": "AlanZinho",
   "license": "ISC",

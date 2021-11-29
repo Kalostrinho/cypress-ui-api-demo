@@ -3,23 +3,19 @@ image: node:14
 stages:
     - Validate node
     - Build and configure
-    - Run API tests
-    - Run UI on Chrome
-    - Run UI on Firefox
+    - Run tests
 
 Pre-reqs:
     stage: Validate node
     script:
-        - npx ascii-themes generate 'CHECK FOR CYPRESS PRE-REQS' --font 'Greek'
         - node -v
         - npm -v
 
 Configure:
     stage: Build and configure
     dependencies:
-        - Pre-check
+        - Pre-reqs
     script:
-        - npx ascii-themes generate 'INSTALL DEPENDENCIES' --font 'Greek'
         - npm install
     artifacts:
         paths:
@@ -32,13 +28,14 @@ Configure:
             - node_modules/
             - .npm/
 
-Test API:  
+Test-API:  
     image: cypress/browsers:node14.17.0-chrome91-ff89
-    stage: Run API tests
+    stage: Run tests
     dependencies:
         - Configure
     script:
-        - npx ascii-themes generate 'CYPRESS API TESTING' --font 'Greek'
+        - npm ci
+        - npm run start:ci &
         - npm run test:api
     artifacts:
         when: always
@@ -48,13 +45,14 @@ Test API:
         expire_in: 2 hrs
     allow_failure: true
 
-Test UI:  
+Test-UI-Chrome:  
     image: cypress/browsers:node14.17.0-chrome91-ff89
-    stage: Run UI on Chrome
+    stage: Run tests
     dependencies:
         - Configure
     script:
-        - npx ascii-themes generate 'CYPRESS TESTING ON CHROME' --font 'Greek'
+        - npm ci
+        - npm run start:ci &
         - npm run test:ui:chrome
     artifacts:
         when: always
@@ -64,13 +62,14 @@ Test UI:
         expire_in: 2 hrs
     allow_failure: true
 
-Test UI:  
+Test-UI-Firefox:  
     image: cypress/browsers:node14.17.0-chrome91-ff89
-    stage: Run UI on Firefox
+    stage: Run tests
     dependencies:
         - Configure
     script:
-        - npx ascii-themes generate 'CYPRESS TESTING ON CHROME' --font 'Greek'
+        - npm ci
+        - npm run start:ci &
         - npm run test:ui:firefox
     artifacts:
         when: always
