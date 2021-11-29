@@ -1,30 +1,41 @@
+/**
+ *  = = = => BEWARE!! <= = = =
+ *  Using "Javascript functions" instead 
+ *  of a "Page Object class"
+ *  = = = => BEWARE!! <= = = =
+ */  
+import { 
+    visit,
+    getScreamArea,
+    getScreamConfirmation,
+    getScreamAgainLink,
+    typeScream,
+    scream,
+    screamAgain,
+} from '../Utils/Scream.util'
+
 describe('This is a UI testing demo', () => {
     
-    const textScreamArea = 'textarea.type'
-    const btnScream = 'div.img-btn'
-    const confirmationMessageAfterScream = 'div.glad'
-    const linkScreamAgain = 'span.here'
-
     before(() => {
-        cy.visit('https://screamintothevoid.com/')
+        visit()
     })
   
     it('should allow to type something in the textarea', () => {
         const randomText = 'This is random'
-        cy.get(textScreamArea).type(randomText)
-        cy.get(textScreamArea).should('have.value', randomText)
+        getScreamArea().should('be.visible')
+        typeScream(randomText)
+        getScreamArea().should('have.value', randomText)
     })
 
     it('should scream into the void', () => {
-        cy.get(btnScream).click()
-        cy.get(confirmationMessageAfterScream).should('be.visible')
+        scream()
+        getScreamConfirmation().should('be.visible')
     })
 
     it('should allow to scream again', () => {
-        cy.get(linkScreamAgain).should('be.visible')
-        cy.get(linkScreamAgain).click()
-        cy.get(textScreamArea).should('have.value', '')
-
+        getScreamAgainLink().should('be.visible')
+        screamAgain()
+        getScreamArea().should('have.value', '')
     })
 
 })
