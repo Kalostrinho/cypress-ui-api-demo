@@ -36,6 +36,7 @@ describe('This is a API testing demo', () => {
                 expect(res).to.have.property('headers')
                 expect(res).to.have.property('duration')
             })
+        
     })
 
 })
