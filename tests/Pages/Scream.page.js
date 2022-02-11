@@ -4,9 +4,7 @@
 //  *******  BEWARE! *******
 class ScreamPage {
     
-    constructor() {
-        this.header = new Header()
-    }
+    constructor() { }
   
     /**
      * Visit the "Scream into the void" webpage.
