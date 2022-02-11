@@ -3,3 +3,6 @@ node_modules/
 
 # Reports:
 output/
+allure*/
+cypress/videos/
+cypress/downloads

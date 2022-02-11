@@ -36,12 +36,14 @@ Test-API:
     script:
         - npm ci
         - npm run start:ci &
-        - npm run test:api
+        - npm run test:api:allure
     artifacts:
         when: always
         paths:
           - cypress/videos/**/*.mp4
           - cypress/screenshots/**/*.png
+          - allure-report
+          - allure-results
         expire_in: 2 hrs
     allow_failure: true
 
@@ -53,12 +55,14 @@ Test-UI-Chrome:
     script:
         - npm ci
         - npm run start:ci &
-        - npm run test:ui:chrome
+        - npm run test:ui:chrome:allure
     artifacts:
         when: always
         paths:
           - cypress/videos/**/*.mp4
           - cypress/screenshots/**/*.png
+          - allure-report
+          - allure-results
         expire_in: 2 hrs
     allow_failure: true
 
@@ -70,11 +74,13 @@ Test-UI-Firefox:
     script:
         - npm ci
         - npm run start:ci &
-        - npm run test:ui:firefox
+        - npm run test:ui:firefox:allure
     artifacts:
         when: always
         paths:
           - cypress/videos/**/*.mp4
           - cypress/screenshots/**/*.png
+          - allure-report
+          - allure-results
         expire_in: 2 hrs
     allow_failure: true
