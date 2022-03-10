@@ -5,4 +5,5 @@ node_modules/
 output/
 allure*/
 cypress/videos/
-cypress/downloads
+cypress/screenshots/
+cypress/downloads/
