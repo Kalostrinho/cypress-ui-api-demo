@@ -91,6 +91,7 @@ describe('-- This is a API testing demo --', () => {
 
         before(() => {
             //  --- Just for giggles!
+            Cypress.on('uncaught:exception', (err, runnable) => { return false })   // <<< Somehow, visit fails intermittently
             cy.visit('https://fakestoreapi.com/')
         })
 
