@@ -3,7 +3,8 @@ image: node:14
 stages:
     - Validate node
     - Build and configure
-    - Run tests
+    - Run tests without report
+    - Run tests with Allure
 
 Pre-reqs:
     stage: Validate node
@@ -28,9 +29,60 @@ Configure:
             - node_modules/
             - .npm/
 
-Test-API:  
+Test-API-NoReport:  
     image: cypress/browsers:node14.17.0-chrome91-ff89
-    stage: Run tests
+    stage: Run tests without report
+    dependencies:
+        - Configure
+    script:
+        - npm ci
+        - npm run start:ci &
+        - npm run test:api
+    artifacts:
+        when: always
+        paths:
+          - cypress/videos/**/*.mp4
+          - cypress/screenshots/**/*.png
+        expire_in: 2 hrs
+    allow_failure: false
+
+Test-UI-Chrome-NoReport:  
+    image: cypress/browsers:node14.17.0-chrome91-ff89
+    stage: Run tests without report
+    dependencies:
+        - Configure
+    script:
+        - npm ci
+        - npm run start:ci &
+        - npm run test:ui:chrome
+    artifacts:
+        when: always
+        paths:
+          - cypress/videos/**/*.mp4
+          - cypress/screenshots/**/*.png
+        expire_in: 2 hrs
+    allow_failure: false
+
+Test-UI-Firefox-NoReport:  
+    image: cypress/browsers:node14.17.0-chrome91-ff89
+    stage: Run tests without report
+    dependencies:
+        - Configure
+    script:
+        - npm ci
+        - npm run start:ci &
+        - npm run test:ui:firefox
+    artifacts:
+        when: always
+        paths:
+          - cypress/videos/**/*.mp4
+          - cypress/screenshots/**/*.png
+        expire_in: 2 hrs
+    allow_failure: false
+
+Test-API-Allure:  
+    image: cypress/browsers:node14.17.0-chrome91-ff89
+    stage: Run tests with Allure
     dependencies:
         - Configure
     script:
@@ -47,9 +99,9 @@ Test-API:
         expire_in: 2 hrs
     allow_failure: true
 
-Test-UI-Chrome:  
+Test-UI-Chrome-Allure:  
     image: cypress/browsers:node14.17.0-chrome91-ff89
-    stage: Run tests
+    stage: Run tests with Allure
     dependencies:
         - Configure
     script:
@@ -66,9 +118,9 @@ Test-UI-Chrome:
         expire_in: 2 hrs
     allow_failure: true
 
-Test-UI-Firefox:  
+Test-UI-Firefox-Allure:  
     image: cypress/browsers:node14.17.0-chrome91-ff89
-    stage: Run tests
+    stage: Run tests with Allure
     dependencies:
         - Configure
     script:
